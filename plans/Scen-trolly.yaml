@@ -1,0 +1,36 @@
+ - name: changeTrack
+    intrinsicvalue: good
+    preconditions: {}
+    effects:
+      - condition: {}
+        effect: {kill_five_people:true}
+
+events:
+  - name: kill_one_person
+    preconditions: {}
+    effects:
+      - condition: {kill_one_person: true}
+        effect: {kill_five_people: false}
+    timepoints: [0]
+
+utilities:
+  - fact: {kill_one_person: true}
+    utility: -1
+  - fact: {kill_one_person: false}
+    utility: -5
+  - fact: {kill_five_people: true}
+    utility: -1
+  - fact: {kill_five_people: false}
+    utility: -5
+
+affects:
+  five_people:
+    pos: [{kill_five_people: false}]
+    neg: [{kill_one_person: true}]
+  one_person:
+    pos: [{kill_five_people: true}]
+    neg: [{kill_one_person: false}]
+
+plan: [changeTrack]
+goal: {kill_five_people: false}
+initialState: {kill_one_person: false, kill_five_people: true}
