@@ -1,0 +1,28 @@
+actions:
+    - name: lie_to_john
+      intrinsicvalue: bad
+      preconditions: {}
+      effects:
+        - condition: {}
+          effect: {john_motivated: true}    
+            
+events:
+    - name: john_action
+      preconditions: {}
+      effects:
+        - condition: {john_motivated: true}
+          effect: {john_healthy_lifstyle: true}
+        - condition: {john_healthy_lifstyle: true}
+          effect: {john_healthy: true}
+      timepoints: [0,1]     
+
+utilities:
+    - fact: {john_healthy: true}
+      utility: 1
+affects:
+    john: 
+      pos: [{john_healthy: true}]
+      neg: [{john_healthy: false}]
+plan: [lie_to_john]
+goal: {john_healthy: true}
+initialState: {john_motivated: false, john_healthy_lifstyle: false, john_healthy: false}

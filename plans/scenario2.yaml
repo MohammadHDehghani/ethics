@@ -1,0 +1,71 @@
+actions:
+  - name: teachClasses
+    intrinsicvalue: good
+    preconditions: { morale_zamani: high }
+    effects:
+      - condition: {}
+        effect: { improve_university: true }
+  - name: draftProposals
+    intrinsicvalue: good
+    preconditions: { morale_zamani: high }
+    effects:
+      - condition: {}
+        effect: { improve_university: true }
+  - name: createObstacles
+    intrinsicvalue: bad
+    preconditions: { status_kasiri: head }
+    effects:
+      - condition: {}
+        effect: { morale_zamani: low }
+  - name: delayApprovals
+    intrinsicvalue: bad
+    preconditions: { status_kasiri: head }
+    effects:
+      - condition: {}
+        effect: { morale_zamani: low }
+  - name: badScheduleMeetings
+    intrinsicvalue: bad
+    preconditions: { status_kasiri: head }
+    effects:
+      - condition: {}
+        effect: { morale_zamani: low }
+
+events:
+  - name: happy_zamani
+    preconditions: { morale_zamani: high }
+    effects:
+      - condition: {}
+        effect: { happy_zamani: true }
+    timepoints: [0]
+
+utilities:
+  - fact: { improve_university: true }
+    utility: 2
+  - fact: { improve_university: false }
+    utility: -2
+  - fact: { morale_zamani: high }
+    utility: 1
+  - fact: { morale_zamani: low }
+    utility: -1
+  - fact: { happy_zamani: true }
+    utility: 1
+  - fact: { happy_zamani: false }
+    utility: -1
+
+affects:
+  zamani:
+    pos: [{ morale_zamani: high }]
+    neg: [{ morale_zamani: low }]
+
+plan:
+  [
+    teachClasses,
+    draftProposals,
+    createObstacles,
+    delayApprovals,
+    badScheduleMeetings,
+  ]
+
+goal: { happy_zamani: true }
+
+initialState: { happy_zamani: false, morale_zamani: high, status_kasiri: head }
