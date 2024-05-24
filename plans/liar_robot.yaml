@@ -19,10 +19,14 @@ events:
 utilities:
     - fact: {john_healthy: true}
       utility: 1
+      
 affects:
     john: 
       pos: [{john_healthy: true}]
       neg: [{john_healthy: false}]
+
 plan: [lie_to_john]
+
 goal: {john_healthy: true}
+
 initialState: {john_motivated: false, john_healthy_lifstyle: false, john_healthy: false}

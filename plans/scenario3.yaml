@@ -1,0 +1,63 @@
+actions:
+  - name: talk_to_master_ahmadi
+    intrinsicvalue: good
+    preconditions: {}
+    effects:
+      - condition: {}
+        effect: {}
+  - name: consulation_with_friends
+    intrinsicvalue: good
+    preconditions: {}
+    effects:
+      - condition: {}
+        effect: {}
+  - name: report_to_higher_authorities
+    intrinsicvalue: good
+    preconditions: {}
+    effects:
+      - condition: {}
+        effect: {she_will_be_good: true}
+  - name: dont_talk_to_master_ahmadi
+    intrinsicvalue: bad
+    preconditions: {}
+    effects:
+      - condition: {}
+        effect: {master_will_be_good: false,she_will_be_good: false}
+         
+events: 
+  - name: she_will_be_good
+    preconditions: {talk_to_master_ahmadi: true , report_to_report_to_higher_authorities: true }
+    effects:
+      - condition: {she_will_be_good: true}
+        effect: {master_will_be_good: true , master_will_fired: true}
+    timepoints: [0]
+  - name: she_wont_be_good
+    preconditions: {talk_to_master_ahmadi: true ,report_to_report_to_higher_authorities: true }
+    effects:
+      - condition: {she_will_be_good: false}
+        effect: {master_will_be_good: false ,maser_will_fired: false}
+    timepoints: [0]
+           
+utilities:
+    - fact: {master_will_be_good: true}
+      utility: 1
+    - fact: {master_will_be_good: false}
+      utility: -1
+    - fact: {master_will_fired: true}
+      utility: 1
+    - fact: {master_will_fired: false}
+      utility: -1
+    - fact: {she_will_be_good: true}  
+      utility: 1
+    - fact: {she_will_be_good: false}
+      utility: -1
+affects:
+    maryam: 
+      pos: [{she_will_be_good: true}]
+      neg: [{she_will_be_good: false}] 
+    master: 
+      pos: [{master_will_be_good: true},master_will_fired: false]
+      neg: [{master_will_fired: true},{master_will_be_good: false}]
+plan: [consulation_with_friends,talk_to_master_ahmadi,report_to_higher_authorities] 
+goal: {master_will_be_good: true,she_will_be_good: true}  
+initialState: {master_will_be_good: false, she_will_be_good: false}   
